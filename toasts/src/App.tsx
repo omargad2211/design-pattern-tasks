@@ -1,68 +1,38 @@
 import React from "react";
-import { ToastProvider, useToast } from "./Contexts/ToastContext";
-import { Button } from "./components/Button";
-import { ToastContainer } from "./components/ToastContainer";
+import toast from "./components/ToastLiberary";
+import { ToastComponent } from "./components/ToastComponent";
 
 const App: React.FC = () => {
-  const { addToast, clearAllToasts } = useToast();
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-5xl font-extrabold text-gray-900 mb-8">
-        Welcome to My App
-      </h1>
+    <div className="p-10">
+      <button
+        className="btn btn-primary"
+        onClick={() => toast.toast("This is a default toast")}
+      >
+        Show Default Toast
+      </button>
+      <button
+        className="btn btn-success ml-2"
+        onClick={() => toast.success("This is a success toast")}
+      >
+        Show Success Toast
+      </button>
+      <button
+        className="btn btn-error ml-2"
+        onClick={() => toast.error("This is an error toast")}
+      >
+        Show Error Toast
+      </button>
+      <button
+        className="btn btn-warning ml-2"
+        onClick={() => toast.dismissAll()}
+      >
+        Dismiss All Toasts
+      </button>
 
-      <div className="flex flex-wrap gap-4 mb-8">
-        <Button
-          onClick={() =>
-            addToast({
-              message: "This is a standard notification.",
-              variant: "default",
-            })
-          }
-          className="bg-blue-500 hover:bg-blue-600 text-white"
-        >
-          Standard
-        </Button>
-        <Button
-          onClick={() =>
-            addToast({
-              message: "Operation completed successfully!",
-              variant: "success",
-            })
-          }
-          className="bg-green-500 hover:bg-green-600 text-white"
-        >
-          Success ✅
-        </Button>
-        <Button
-          onClick={() =>
-            addToast({
-              message: "Oops! Something went wrong.",
-              variant: "error",
-            })
-          }
-          className="bg-red-500 hover:bg-red-600 text-white"
-        >
-          Error ❌
-        </Button>
-        <Button
-          onClick={clearAllToasts}
-          className="bg-gray-500 hover:bg-gray-600 text-white"
-        >
-          Clear All 🗑️
-        </Button>
-      </div>
-
-      <ToastContainer />
+      <ToastComponent />
     </div>
   );
 };
 
-const WrappedApp: React.FC = () => (
-  <ToastProvider>
-    <App />
-  </ToastProvider>
-);
-
-export default WrappedApp;
+export default App;
